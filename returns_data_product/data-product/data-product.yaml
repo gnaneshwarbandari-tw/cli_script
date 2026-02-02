@@ -1,0 +1,61 @@
+apiVersion: v1.0
+kind: DataProduct
+
+name: Returns Data Product
+id: 550e8400-e29b-41d4-a716-446655440000
+domain: returns
+status: draft
+tenant: otto
+data_product_uuid: 550e8400-e29b-41d4-a716-446655440000
+
+team:
+  name: "FreeTrade"
+  members:
+    - username: "vinod.murugesan@fremdpersonal-otto.de"
+      name: "Vinod Murugesan"
+      role: "owner"
+
+support:
+  - channel: "teams"
+    url: "https://teams.microsoft.com/l/channel/..."
+  - channel: "email"
+    url: "mailto:tradeport@otto.de"
+
+description:
+  purpose: This data product provides details about the customer returns in otto.
+  limitations: No known limitations.
+  usage: logistics and returns analysis
+
+tags: ['returns']
+
+inputPorts:
+  name: boxfish-galapagos-returns-stream
+  description: "Input stream for returns data."
+  type: stream
+  version: 1.0.0
+  contractId: 123e4567-e89b-12d3-a456-426614174000
+  tags: ["kafka", "returns", "sadp"]
+  customProperties:
+    - property: "topicName"
+      value: "TBD"
+    - property: "bootstrapServers"
+      value: "TBD"
+    - property: "consumerGroup"
+      value: "TBD"
+
+outputPorts:
+  name: returns-bigquery-table
+  description: "Output table for data product in BigQuery."
+  type: table
+  version: 1.0.0
+  contractId: 789e4567-e89b-12d3-a456-426614174222
+  tags: ["bigquery", "returns", "sadp"]
+  customProperties:
+    - property: "destination"
+      value: "bigquery"
+    - property: "projectId"
+      value: "${BIGQUERY_OUTPUT_PROJECT_ID}"
+    - property: "datasetId"
+      value: "${BIGQUERY_OUTPUT_DATASET_ID}"
+    - property: "tableId"
+      value: "${BIGQUERY_OUTPUT_TABLE}"

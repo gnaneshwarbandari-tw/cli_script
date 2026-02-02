@@ -24,7 +24,7 @@ jobs:
       - name: Run Schema Validation
         run: |
           # Use the same script delivered by the template
-          python3 scripts/validate_spec.py data-product/data-product.yaml validate-schema.json
+          python3 scripts/validate_spec.py data-product/data-product.yaml validate_schema.json
 
       - name: Integration Test (Dry Run)
         run: |

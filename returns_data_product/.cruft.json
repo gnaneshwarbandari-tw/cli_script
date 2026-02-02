@@ -1,0 +1,28 @@
+{
+  "template": "https://github.com/gnaneshwarbandari-tw/data-product-blueprint.git",
+  "commit": "a5c0eb5c2ac3ffc97c893ff5100617ebabb7d612",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "Returns Data Product",
+      "project_slug": "returns_data_product",
+      "data_product_uuid": "550e8400-e29b-41d4-a716-446655440000",
+      "domain": "returns",
+      "team_name": "FreeTrade",
+      "owner_name": "Vinod Murugesan",
+      "owner_email": "vinod.murugesan@fremdpersonal-otto.de",
+      "support_email": "tradeport@otto.de",
+      "teams_channel_url": "https://teams.microsoft.com/l/channel/...",
+      "purpose_description": "This data product provides details about the customer returns in otto.",
+      "usage_description": "logistics and returns analysis",
+      "input_port_name": "boxfish-galapagos-returns-stream",
+      "input_type": "stream",
+      "input_contract_uuid": "123e4567-e89b-12d3-a456-426614174000",
+      "output_port_name": "returns-bigquery-table",
+      "output_contract_uuid": "789e4567-e89b-12d3-a456-426614174222",
+      "_template": "https://github.com/gnaneshwarbandari-tw/data-product-blueprint.git",
+      "_commit": "a5c0eb5c2ac3ffc97c893ff5100617ebabb7d612"
+    }
+  },
+  "directory": null
+}
