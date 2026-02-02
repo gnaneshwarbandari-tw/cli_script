@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/gnaneshwarbandari-tw/data-product-blueprint.git",
-  "commit": "20db33558722ebc2814c29e03c612904c4f13759",
+  "commit": "7936532f0b0de1444c25f0373b6e4c79236dbbe7",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -18,7 +18,7 @@
       "input_type": "stream",
       "output_port_name": "returns-bigquery-table",
       "_template": "https://github.com/gnaneshwarbandari-tw/data-product-blueprint.git",
-      "_commit": "20db33558722ebc2814c29e03c612904c4f13759"
+      "_commit": "7936532f0b0de1444c25f0373b6e4c79236dbbe7"
     }
   },
   "directory": null
