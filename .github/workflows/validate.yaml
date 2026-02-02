@@ -1,0 +1,32 @@
+name: Data Product Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install jsonschema PyYAML
+
+      - name: Run Schema Validation
+        run: |
+          # Use the same script delivered by the template
+          python3 scripts/validate_spec.py data-product/data-product.yaml validate-schema.json
+
+      - name: Integration Test (Dry Run)
+        run: |
+          # Convert to JSON to ensure parsability
+          python3 -c 'import yaml, json; print(json.dumps(yaml.safe_load(open("data-product/data-product.yaml"))))'

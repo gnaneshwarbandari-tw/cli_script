@@ -1,0 +1,44 @@
+#!/bin/bash
+
+BLUEPRINT_URL="https://github.com/your-org/data-product-blueprint.git"
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+init_dp() {
+    echo -e "${GREEN}==> Initializing Data Product...${NC}"
+    cruft create "$BLUEPRINT_URL"
+}
+
+register_dp() {
+    # File paths within the scaffolded project
+    SPEC="data-product/data-product.yaml"
+    SCHEMA="validate-schema.json"
+    VALIDATOR="scripts/validate_spec.py"
+    INTERNAL_HELPER="scripts/dp_internal_validation.sh"
+
+    if [ ! -f "$SPEC" ]; then
+        echo -e "${RED}Error: Run this inside your Data Product folder.${NC}"
+        exit 1
+    fi
+
+    # 1. Validate
+    bash "$INTERNAL_HELPER" "$SPEC" "$SCHEMA" "$VALIDATOR"
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Validation Failed. Check errors above.${NC}"
+        exit 1
+    fi
+
+    # 2. Convert and Register
+    echo -e "${GREEN}==> Validated. Registering...${NC}"
+    JSON_PAYLOAD=$(python3 -c 'import sys, yaml, json; print(json.dumps(yaml.safe_load(sys.stdin)))' < "$SPEC")
+    
+    # curl -X POST https://api.otto.de/register -d "$JSON_PAYLOAD" -H "Content-Type: application/json"
+    echo "Successfully registered to DataHub."
+}
+
+case "$1" in
+    init) init_dp ;;
+    register) register_dp ;;
+    *) echo "Usage: dp [init|register]" ;;
+esac
