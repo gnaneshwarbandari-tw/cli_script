@@ -22,11 +22,13 @@ jobs:
         run: pip install jsonschema PyYAML
 
       - name: Run Schema Validation
+        working-directory: returns_data_product
         run: |
           # Use the same script delivered by the template
           python3 scripts/validate_spec.py data-product/data-product.yaml validate_schema.json
 
       - name: Integration Test (Dry Run)
+        working-directory: returns_data_product
         run: |
           # Convert to JSON to ensure parsability
           python3 -c 'import yaml, json; print(json.dumps(yaml.safe_load(open("data-product/data-product.yaml"))))'
