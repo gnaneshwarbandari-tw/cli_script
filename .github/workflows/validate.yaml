@@ -21,14 +21,30 @@ jobs:
       - name: Install Dependencies
         run: pip install jsonschema PyYAML
 
-      - name: Run Schema Validation
-        working-directory: returns_data_product
+      - name: Find Data Product Directory
+        id: find-dp
         run: |
-          # Use the same script delivered by the template
+          DP_DIR=$(find . -name "data-product.yaml" -path "*/data-product/*" | head -1 | xargs dirname | xargs dirname)
+          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
+          echo "Found data product in: $DP_DIR"
+
+      - name: Run Schema Validation
+        run: |
+          cd "${{ steps.find-dp.outputs.dp_dir }}"
           python3 scripts/validate_spec.py data-product/data-product.yaml validate_schema.json
 
       - name: Integration Test (Dry Run)
-        working-directory: returns_data_product
         run: |
-          # Convert to JSON to ensure parsability
+          cd "${{ steps.find-dp.outputs.dp_dir }}"
           python3 -c 'import yaml, json; print(json.dumps(yaml.safe_load(open("data-product/data-product.yaml"))))'
+
+      - name: Register Data Product via API
+        run: |
+          cd "${{ steps.find-dp.outputs.dp_dir }}"
+          DATA_PRODUCT_JSON=$(python3 -c 'import yaml, json; print(json.dumps(yaml.safe_load(open("data-product/data-product.yaml"))))')
+          
+          curl -X POST "${{ secrets.DATA_PRODUCT_API_URL }}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.API_TOKEN }}" \
+            -d "$DATA_PRODUCT_JSON" \
+            --fail-with-body
