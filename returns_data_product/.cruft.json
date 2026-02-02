@@ -1,9 +1,12 @@
 {
   "template": "https://github.com/gnaneshwarbandari-tw/data-product-blueprint.git",
-  "commit": "7936532f0b0de1444c25f0373b6e4c79236dbbe7",
+  "commit": "0e4100d27906a22c80f044644a6c4cf7c8cf0a4e",
   "checkout": null,
   "context": {
     "cookiecutter": {
+      "_copy_without_render": [
+        ".github/*"
+      ],
       "project_name": "Returns Data Product",
       "project_slug": "returns_data_product",
       "domain": "returns",
@@ -18,7 +21,7 @@
       "input_type": "stream",
       "output_port_name": "returns-bigquery-table",
       "_template": "https://github.com/gnaneshwarbandari-tw/data-product-blueprint.git",
-      "_commit": "7936532f0b0de1444c25f0373b6e4c79236dbbe7"
+      "_commit": "0e4100d27906a22c80f044644a6c4cf7c8cf0a4e"
     }
   },
   "directory": null
